@@ -1,1 +1,26 @@
-<span class="test">countdown works!</span>
+<div class="container">
+  <div class="title">
+    <span>Time Until Iftar</span>
+  </div>
+  <div class="clock-wrapper">
+    <div class="time-card">
+      <span class="value">{{ hours() }}</span>
+      <span class="label">HOURS</span>
+    </div>
+
+    <span class="separator">:</span>
+
+    <div class="time-card">
+      <span class="value">{{ minutes() }}</span>
+      <span class="label">MINS</span>
+    </div>
+
+    <span class="separator">:</span>
+
+    <div class="time-card highlight">
+      <span class="value">{{ seconds() }}</span>
+      <span class="label">SECS</span>
+    </div>
+  </div>
+  <div class="reminder"></div>
+</div>
