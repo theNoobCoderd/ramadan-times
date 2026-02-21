@@ -1,5 +1,5 @@
 export interface RamadanTimeModel {
   date: string;
-  imsak: string;
-  iftar: string;
+  sehri: string;
+  iftaar: string;
 }
