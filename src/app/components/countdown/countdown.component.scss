@@ -1,7 +1,7 @@
 .container {
   display: flex;
-  flex-flow: row wrap;
-  justify-content: center;
+  flex-flow: column wrap;
+  align-items: center;
 
   color: white;
   background-color: #163526;
