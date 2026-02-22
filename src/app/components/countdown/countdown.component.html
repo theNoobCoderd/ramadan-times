@@ -1,6 +1,10 @@
 <div class="container">
   <div class="title">
-    <span>Time Until Iftar</span>
+    @if (displaySehri()) {
+      <span>Time Until Imsak (Fajr)</span>
+    } @else {
+      <span>Time Until Iftar (Maghrib)</span>
+    }
   </div>
   <div class="clock-wrapper">
     <div class="time-card">

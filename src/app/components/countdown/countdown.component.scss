@@ -10,8 +10,22 @@
   padding: 2rem;
 }
 
+.title {
+  color: #2bee8c;
+  font-size: 14px;
+  font-weight: 600;
+
+  border: 1px solid #2bee8c33;
+  background-color: #2bee8c0d;
+  padding-block: 6px;
+  padding-inline: 16px;
+  border-radius: 99999px;
+}
+
 .clock-wrapper {
   display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
   gap: 1rem;
 
   .time-card {

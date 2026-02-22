@@ -22,12 +22,28 @@ export class CountdownComponent implements OnInit, OnDestroy {
     return this.ramadanTimes().find(r => r.date === today);
   });
 
+  tomorrowRamadan = computed(() => {
+    const tomorrow = new Date(this.now());
+    tomorrow.setDate(tomorrow.getDate() + 1);
+
+    const formattedTomorrow = this.formatDate(tomorrow);
+    return this.ramadanTimes().find(r => r.date === formattedTomorrow);
+  });
+
   // 🔹 Difference in milliseconds
   private diff = computed(() => {
     const today = this.todayRamadan();
+    const tomorrow = this.tomorrowRamadan();
     if (!today) return 0;
+    if (!tomorrow) return 0
 
-    const target = new Date(today.iftaar); // or sehri if needed
+    let todayDay;
+    if (this.displaySehri()) {
+      todayDay = tomorrow.sehri;
+    } else {
+      todayDay = today.iftaar;
+    }
+    const target = new Date(todayDay); // or sehri if needed
     let now = this.now();
     let number = target.getTime() - now.getTime();
     return number;
@@ -54,6 +70,14 @@ export class CountdownComponent implements OnInit, OnDestroy {
     let s = String(Math.floor((d / 1000) % 60)).padStart(2, '0');
     return s;
   });
+
+  displaySehri = computed(() => {
+    const today = this.todayRamadan();
+    if (!today) return 0;
+
+    const iftarTime = new Date(today.iftaar);
+     return this.now().getTime() > iftarTime.getTime();
+  })
 
   ngOnInit(): void {
     // Load JSON once
