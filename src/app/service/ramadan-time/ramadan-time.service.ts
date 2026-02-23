@@ -22,17 +22,24 @@ export class RamadanTimeService {
     const currentDate = this.currentRamadanDay(now);
     const nextDate = this.nextRamadanDay(now);
 
-    if (!currentDate) return 0;
-    if (!nextDate) return 0
+    if (!currentDate || !nextDate) return 0;
 
-    let todayDay;
-    if (this.isPastIftarTime(now)) {
-      todayDay = nextDate.sehri;
-    } else {
-      todayDay = currentDate.iftaar;
+    const sehriTime = new Date(currentDate.sehri);
+    const iftarTime = new Date(currentDate.iftaar);
+    const nextSehriTime = new Date(nextDate.sehri);
+
+    if (now < sehriTime) {
+      // Before sehri
+      return sehriTime.getTime() - now.getTime();
     }
 
-    return new Date(todayDay).getTime() - now.getTime();
+    if (now < iftarTime) {
+      // Fasting time
+      return iftarTime.getTime() - now.getTime();
+    }
+
+    // After iftar
+    return nextSehriTime.getTime() - now.getTime();
   }
 
   isPastIftarTime(now: Date): boolean {

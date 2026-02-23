@@ -1,11 +1,17 @@
 .ramadan-dates-table {
 
+  border-radius: 1.5rem;
+  overflow: hidden;
+  margin-top: 2rem;
+
   table {
     background-color: #163526;
+    border-radius: 1.5rem;
   }
 
   th {
     color: white;
+    background-color: #064E3B;
   }
 
   tr {
@@ -16,4 +22,8 @@
 .dates {
   display: flex;
   flex-flow: column nowrap;
+}
+
+.today-row {
+  background-color: #297552;
 }
