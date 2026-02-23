@@ -1,0 +1,36 @@
+.cont {
+  color: white;
+  background-color: #163526;
+
+  padding: 1.5rem;
+  border-radius: 1.5rem;
+
+  margin-bottom: 2rem;
+}
+
+.date-hero {
+
+  h2 {
+    margin: 0;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  .date-hijri {
+    font-size: clamp(30px, 8vw, 36px);
+    color: #2bee8c;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 0.5rem;
+  }
+
+  .date-western {
+    font-size: clamp(16px, 4vw, 18px);
+    color: #9db9ab;
+    font-weight: 500;
+
+    margin-bottom: 1.5rem;
+  }
+}

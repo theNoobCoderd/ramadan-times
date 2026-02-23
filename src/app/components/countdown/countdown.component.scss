@@ -28,7 +28,7 @@
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
-  gap: 1rem;
+  gap: clamp(0.5rem, 2vw, 1rem);
 
   .time-card {
     display: flex;
@@ -45,7 +45,7 @@
 
     .value {
       font-weight: 900;
-      font-size: 60px;
+      font-size: clamp(45px, 14vw, 60px);
     }
 
     .value.seconds {
@@ -60,7 +60,7 @@
 
     color: #4b5563;
 
-    font-size: 36px;
+    font-size: clamp(30px, 8.2vw, 36px);
     font-weight: 300;
   }
 }
@@ -70,4 +70,5 @@
   font-size: 0.875rem;
   line-height: 1.25rem;
   margin-top: 2rem;
+  text-align: center;
 }
