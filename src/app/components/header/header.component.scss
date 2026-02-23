@@ -1,9 +1,23 @@
 .header-ramadan {
-  background-color: #102219cc;
+  background-color: #102219;
 
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
 
   padding-block: 2rem;
+  padding-inline: 2rem;
+  font-size: 20px;
+  font-weight: 600;
+  color: white;
+
+  .location {
+    font-size: 14px;
+    font-weight: 500;
+    padding-block: 0.5rem;
+    padding-inline: 1rem;
+
+    background-color: #283930;
+    border-radius: 999999px;
+  }
 }
