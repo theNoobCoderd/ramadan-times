@@ -18,63 +18,52 @@ export class RamadanTimeService {
       .subscribe(data => this.ramadanTimes.set(data));
   }
 
-  getNextEvent(now: Date): { name: string; time: Date } | null {
-    const todayStr = this.formatDate(now);
-    const today = this.ramadanTimes().find(r => r.date === todayStr);
+  getNextEvent(now: Date): number {
+    const currentDate = this.currentRamadanDay(now);
+    const nextDate = this.nextRamadanDay(now);
 
-    if (!today) return null;
+    if (!currentDate) return 0;
+    if (!nextDate) return 0
 
-    const sehriToday = this.parseCustomDate(today.sehri);
-    const iftaarToday = this.parseCustomDate(today.iftaar);
-
-    // Before sehri
-    if (now < sehriToday) {
-      return { name: 'Sehri', time: sehriToday };
+    let todayDay;
+    if (this.isPastIftarTime(now)) {
+      todayDay = nextDate.sehri;
+    } else {
+      todayDay = currentDate.iftaar;
     }
 
-    // Between sehri & iftaar
-    if (now < iftaarToday) {
-      return { name: 'Iftaar', time: iftaarToday };
-    }
+    return new Date(todayDay).getTime() - now.getTime();
+  }
 
-    // After iftaar → tomorrow sehri
-    const tomorrowDate = new Date(now);
-    tomorrowDate.setDate(tomorrowDate.getDate() + 1);
+  isPastIftarTime(now: Date): boolean {
+    const currentDate = this.currentRamadanDay(now);
+    if (!currentDate) return false;
 
-    const tomorrowStr = this.formatDate(tomorrowDate);
-    const tomorrow = this.ramadanTimes().find(r => r.date === tomorrowStr);
-
-    if (tomorrow) {
-      const sehriTomorrow = this.parseCustomDate(tomorrow.sehri);
-      return { name: 'Sehri', time: sehriTomorrow };
-    }
-
-    return null;
+    const iftarTime = new Date(currentDate?.iftaar);
+    return now.getTime() > iftarTime.getTime();
   }
 
   getAllTimes(): Observable<RamadanTimeModel[]> {
     return this.http.get<RamadanTimeModel[]>(this.jsonUrl);
   }
 
+  private currentRamadanDay(now: Date): RamadanTimeModel | undefined {
+    const today = this.formatDate(now);
+    return this.ramadanTimes().find(r => r.date.toString() === today);
+  }
+
+  private nextRamadanDay(now: Date): RamadanTimeModel | undefined {
+    const tomorrow = new Date(now);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+
+    const formattedTomorrow = this.formatDate(tomorrow);
+    return this.ramadanTimes().find(r => r.date.toString() === formattedTomorrow);
+  }
+
   private formatDate(date: Date): string {
     const d = String(date.getDate()).padStart(2, '0');
     const m = String(date.getMonth() + 1).padStart(2, '0');
     const y = date.getFullYear();
-    return `${d}-${m}-${y}`;
-  }
-
-  private parseCustomDate(dateString: string): Date {
-    const [datePart, timePart] = dateString.split('T');
-    const [day, month, year] = datePart.split('-');
-    const [hours, minutes, seconds] = timePart.split(':');
-
-    return new Date(
-      Number(year),
-      Number(month) - 1,
-      Number(day),
-      Number(hours),
-      Number(minutes),
-      Number(seconds)
-    );
+    return `${y}-${m}-${d}`;
   }
 }

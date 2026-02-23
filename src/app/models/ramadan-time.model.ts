@@ -1,5 +1,6 @@
 export interface RamadanTimeModel {
-  date: string;
+  date: Date;
   sehri: string;
   iftaar: string;
+  dateHijri: string;
 }
