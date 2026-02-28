@@ -37,8 +37,12 @@ export class CountdownComponent implements OnInit, OnDestroy {
     return String(Math.floor((nextEvent / 1000) % 60)).padStart(2, '0');
   });
 
-  isPastIftarTime = computed(() => {
-    return this.ramadanTimeService.isPastIftarTime(this.now())
+  isBeforeSehri = computed(() => {
+    return this.ramadanTimeService.isBeforeSehri(this.now());
+  });
+
+  isAfterIftar = computed(() => {
+    return this.ramadanTimeService.isAfterIftar(this.now());
   })
 
   ngOnInit(): void {
@@ -49,6 +53,15 @@ export class CountdownComponent implements OnInit, OnDestroy {
       this.now.set(new Date());
     }, 1000);
   }
+
+  // // Add this method to your class
+  // setTestDate(dateString: string) {
+  //   // Stop the real-time interval so it doesn't overwrite your test date
+  //   if (this._timerId) clearInterval(this._timerId);
+  //
+  //   // Set the signal to your specific test date
+  //   this.now.set(new Date(dateString));
+  // }
 
   ngOnDestroy(): void {
     if (this._timerId) {

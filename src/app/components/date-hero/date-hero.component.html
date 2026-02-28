@@ -1,8 +1,8 @@
 <div class="cont">
   <div class="date-hero">
     <div>
-      <h2 class="date-hijri">14 Ramadan 1445</h2>
-      <p class="date-western">Monday, March 25, 2024</p>
+      <h2 class="date-hijri">{{currentHijriDate()}} Ramadan 1447</h2>
+      <p class="date-western">{{ currentGeorgianDate()?.date | date: 'EEEE, MMMM d, y' }}</p>
     </div>
   </div>
 </div>

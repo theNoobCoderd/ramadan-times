@@ -18,6 +18,10 @@ export class RamadanTimeService {
       .subscribe(data => this.ramadanTimes.set(data));
   }
 
+  getGeorgianDate(now: Date): RamadanTimeModel | undefined {
+    return this.currentRamadanDay(now);
+  }
+
   getNextEvent(now: Date): number {
     const currentDate = this.currentRamadanDay(now);
     const nextDate = this.nextRamadanDay(now);
@@ -42,12 +46,30 @@ export class RamadanTimeService {
     return nextSehriTime.getTime() - now.getTime();
   }
 
-  isPastIftarTime(now: Date): boolean {
+  isBeforeSehri(now: Date): boolean {
     const currentDate = this.currentRamadanDay(now);
     if (!currentDate) return false;
 
-    const iftarTime = new Date(currentDate?.iftaar);
-    return now.getTime() > iftarTime.getTime();
+    const sehriTime = new Date(currentDate.sehri);
+    return now < sehriTime;
+  }
+
+  isAfterIftar(now: Date): boolean {
+    const currentDate = this.currentRamadanDay(now);
+    if (!currentDate) return false;
+
+    const iftarTime = new Date(currentDate.iftaar);
+    const sehriTime = new Date(currentDate.sehri);
+
+    return !(now < sehriTime) && !(now < iftarTime);
+  }
+
+  isFastingTime(now: Date): boolean {
+    const currentDate = this.currentRamadanDay(now);
+    if (!currentDate) return false;
+
+    const iftarTime = new Date(currentDate.iftaar);
+    return now < iftarTime
   }
 
   getAllTimes(): Observable<RamadanTimeModel[]> {
