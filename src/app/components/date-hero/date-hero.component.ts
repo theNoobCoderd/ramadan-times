@@ -24,25 +24,19 @@ export class DateHeroComponent implements OnInit {
   });
 
   currentHijriDate = computed(() => {
-    let currentDate = this.ramadanTimeService.getGeorgianDate(this.now());
+    const data = this.ramadanTimeService.getGeorgianDate(this.now());
 
-    if (this.isBeforeSehri() && !this.isAfterIftar()) {
-      return String(currentDate?.dateHijri).padStart(2, '0');
-    }
+    // Guard clause
+    if (!data?.dateHijri) return "00";
 
+    let day = data.dateHijri;
+
+    // If it's after Iftar, the new Hijri day has started
     if (this.isAfterIftar()) {
-      let dateHijri = currentDate?.dateHijri;
-      if (!dateHijri) {
-        return 0;
-      }
-      return String(dateHijri + 1).padStart(2, '0');
+      day++;
     }
 
-    if (!this.isBeforeSehri() && !this.isAfterIftar()) {
-      return String(currentDate?.dateHijri).padStart(2, '0');
-    }
-
-    return 0;
+    return String(day).padStart(2, '0');
   });
 
   ngOnInit(): void {

@@ -62,6 +62,7 @@ export class CountdownComponent implements OnInit, OnDestroy {
   //   // Set the signal to your specific test date
   //   this.now.set(new Date(dateString));
   // }
+  //February 27, 2026 05:44:00
 
   ngOnDestroy(): void {
     if (this._timerId) {

@@ -1,10 +1,8 @@
 <div class="cont">
   <div class="date-hero">
     <div>
-      @if (currentHijriDate()) {
-        <h2 class="date-hijri">{{currentHijriDate()}} Ramadan 1447</h2>
-        <p class="date-western">{{ currentGeorgianDate()?.date | date: 'EEEE, MMMM d, y' }}</p>
-      }
+      <h2 class="date-hijri">{{currentHijriDate()}} Ramadan 1447</h2>
+      <p class="date-western">{{ currentGeorgianDate()?.date | date: 'EEEE, MMMM d, y' }}</p>
     </div>
   </div>
 </div>
