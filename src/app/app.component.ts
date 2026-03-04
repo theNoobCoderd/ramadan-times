@@ -4,6 +4,7 @@ import {HeaderComponent} from './components/header/header.component';
 import {CountdownComponent} from './components/countdown/countdown.component';
 import {TableComponent} from './components/table/table.component';
 import {DateHeroComponent} from './components/date-hero/date-hero.component';
+import {PosthogService} from './service/posthog/posthog.service';
 
 @Component({
   selector: 'app-root',
@@ -13,4 +14,7 @@ import {DateHeroComponent} from './components/date-hero/date-hero.component';
 })
 export class AppComponent {
   title = 'ramadan-times';
+
+  constructor(posthogService: PosthogService) {
+  }
 }
